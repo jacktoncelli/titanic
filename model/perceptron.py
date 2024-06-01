@@ -58,7 +58,6 @@ class TitanicPerceptron():
                     # Update weights and bias
                     self.weights += learning_rate * error * input_data.T
                     self.bias += learning_rate * error.reshape(-1, 1)
-                
             accuracy = self.evaluate(input, target_output)
             if accuracy > self.highest_accuracy:
                 self.highest_accuracy = accuracy
