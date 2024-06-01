@@ -38,7 +38,7 @@ class TitanicPerceptron():
     For the given input and target output, will update the weights of this perceptron for
     num_epochs epochs according to the passed learning rate
     """
-    def train(self, input, target_output, num_epochs, learning_rate=1):
+    def train(self, input, target_output, num_epochs, learning_rate=1, l1_lambda=None, l2_lambda=None):
         # iterate num_epoch times to update the weights
         for e in range(num_epochs):
             # for each epoch, go through each sample of the outputs and update as needed
@@ -55,9 +55,16 @@ class TitanicPerceptron():
                     # Compute error
                     error = true_label - prediction
                     
-                    # Update weights and bias
-                    self.weights += learning_rate * error * input_data.T
+                    # Update weights with regularization
+                    weight_update = learning_rate * error * input_data.T
+                    if l1_lambda:
+                        weight_update -= learning_rate * l1_lambda * np.sign(self.weights)
+                    if l2_lambda:
+                        weight_update -= learning_rate * l2_lambda * 2 * self.weights
+                    
+                    self.weights += weight_update
                     self.bias += learning_rate * error.reshape(-1, 1)
+                
             accuracy = self.evaluate(input, target_output)
             if accuracy > self.highest_accuracy:
                 self.highest_accuracy = accuracy

@@ -21,12 +21,16 @@ train_output = train_df.iloc[:, -1]
 num_features = train_input_features.shape[1]
 epochs = 500
 learning_rate = 0.003
+l1_lambda = 0.01
+l2_lambda = 0.01
 
 # initializing the perceptron model
 titanic_perceptron = TitanicPerceptron(num_features)
 
 # training the model 
-titanic_perceptron.train(input=train_input_features, target_output=train_output, num_epochs=epochs, learning_rate=learning_rate)
+titanic_perceptron.train(input=train_input_features, target_output=train_output, 
+                         num_epochs=epochs, learning_rate=learning_rate, 
+                         l1_lambda=l1_lambda)
 
 # load the best model state
 titanic_perceptron.load_best_model()
