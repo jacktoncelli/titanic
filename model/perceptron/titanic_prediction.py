@@ -5,7 +5,7 @@ import datetime
 from perceptron import TitanicPerceptron
 
 # getting the data from the cleaned files
-data_raw_dir = os.path.join(os.getcwd(), "data/clean")
+data_raw_dir = os.path.join(os.pardir, os.pardir, "data/clean")
 
 cleaned_test_csv = os.path.join(data_raw_dir, "cleaned_test.csv")
 cleaned_train_csv = os.path.join(data_raw_dir, "cleaned_train.csv")
@@ -42,5 +42,5 @@ test_predictions_df = pd.DataFrame({'PassengerID' : range(892, 892 + len(test_pr
 # save predictions to a csv
 curr_time_str = datetime.datetime.now().strftime("%Y-%m-%d %H_%M_%S")
 
-predictions_dir = os.path.join(os.getcwd(), "predictions")
+predictions_dir = os.path.join(os.pardir, os.pardir, "predictions")
 test_predictions_df.to_csv(os.path.join(predictions_dir, curr_time_str + 'predictions.csv'), index=False)
